@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+<div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-md p-8">
+  <div class="flex items-center gap-3 mb-6">
+    <a href="/books" class="text-gray-400 hover:text-gray-600">← Quay lại</a>
+    <h2 class="text-2xl font-bold text-yellow-600">✏️ Sửa thông tin sách</h2>
+  </div>
+  <form method="POST" action="/books/<%= book.id %>/edit">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="md:col-span-2">
+        <label class="block text-gray-700 font-medium mb-2">Tên sách <span class="text-red-500">*</span></label>
+        <input type="text" name="ten_sach" required value="<%= book.ten_sach %>"
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition">
+      </div>
+      <div>
+        <label class="block text-gray-700 font-medium mb-2">Tác giả <span class="text-red-500">*</span></label>
+        <input type="text" name="tac_gia" required value="<%= book.tac_gia %>"
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition">
+      </div>
+      <div>
+        <label class="block text-gray-700 font-medium mb-2">Thể loại</label>
+        <input type="text" name="the_loai" value="<%= book.the_loai || '' %>"
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition">
+      </div>
+      <div>
+        <label class="block text-gray-700 font-medium mb-2">Năm xuất bản</label>
+        <input type="number" name="nam_xb" value="<%= book.nam_xb || '' %>"
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition">
+      </div>
+      <div>
+        <label class="block text-gray-700 font-medium mb-2">Số lượng</label>
+        <input type="number" name="so_luong" min="1" value="<%= book.so_luong %>"
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition">
+      </div>
+      <div class="md:col-span-2">
+        <label class="block text-gray-700 font-medium mb-2">Mô tả</label>
+        <textarea name="mo_ta" rows="3"
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 focus:outline-none transition resize-none"><%= book.mo_ta || '' %></textarea>
+      </div>
+    </div>
+    <div class="flex gap-3 mt-6">
+      <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold px-8 py-3 rounded-lg transition">💾 Cập nhật</button>
+      <a href="/books" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold px-8 py-3 rounded-lg transition">Hủy</a>
+    </div>
+  </form>
+</div>
+<%- include('../partials/footer') %>

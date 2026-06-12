@@ -1,0 +1,49 @@
+<%- include('../partials/header') %>
+<div class="max-w-xl mx-auto bg-white rounded-2xl shadow-md p-8">
+  <div class="flex items-center gap-3 mb-6">
+    <a href="/borrows" class="text-gray-400 hover:text-gray-600">← Quay lại</a>
+    <h2 class="text-2xl font-bold text-blue-900">➕ Tạo phiếu mượn sách</h2>
+  </div>
+  <% if (error) { %><div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-5 text-sm">⚠️ <%= error %></div><% } %>
+  <form method="POST" action="/borrows/create">
+    <div class="mb-5">
+      <label class="block text-gray-700 font-medium mb-2">Người mượn <span class="text-red-500">*</span></label>
+      <select name="user_id" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-white">
+        <option value="">-- Chọn người mượn --</option>
+        <% users.forEach(u => { %><option value="<%= u.id %>"><%= u.ho_ten %> &lt;<%= u.email %>&gt;</option><% }) %>
+      </select>
+    </div>
+    <div class="mb-5">
+      <label class="block text-gray-700 font-medium mb-2">Sách mượn <span class="text-red-500">*</span></label>
+      <select name="sach_id" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none bg-white">
+        <option value="">-- Chọn sách --</option>
+        <% books.forEach(b => { %><option value="<%= b.id %>"><%= b.ten_sach %> — <%= b.tac_gia %> (Còn: <%= b.so_luong_con %>)</option><% }) %>
+      </select>
+    </div>
+    <div class="grid grid-cols-2 gap-4 mb-5">
+      <div>
+        <label class="block text-gray-700 font-medium mb-2">Ngày mượn <span class="text-red-500">*</span></label>
+        <input type="date" name="ngay_muon" required value="<%= new Date().toISOString().split('T')[0] %>"
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+      </div>
+      <div>
+        <label class="block text-gray-700 font-medium mb-2">Hạn trả <span class="text-red-500">*</span></label>
+        <input type="date" name="ngay_hen_tra" required
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+      </div>
+    </div>
+    <div class="mb-5">
+      <label class="block text-gray-700 font-medium mb-2">Ghi chú</label>
+      <textarea name="ghi_chu" rows="2" placeholder="Ghi chú thêm nếu có..."
+        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none"></textarea>
+    </div>
+    <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6 text-sm text-orange-800">
+      ⚠️ Phạt trả muộn <strong>5,000đ/ngày</strong> | Làm mất sách <strong>200,000đ</strong>
+    </div>
+    <div class="flex gap-3">
+      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3 rounded-lg transition">📋 Tạo phiếu mượn</button>
+      <a href="/borrows" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold px-8 py-3 rounded-lg transition">Hủy</a>
+    </div>
+  </form>
+</div>
+<%- include('../partials/footer') %>
