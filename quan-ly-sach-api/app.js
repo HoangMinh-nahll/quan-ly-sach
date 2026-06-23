@@ -5,18 +5,25 @@ const app     = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/users',   require('./routes/users'));
-app.use('/api/books',   require('./routes/books'));
-app.use('/api/borrows', require('./routes/borrows'));
-app.use('/api/stats',   require('./routes/stats'));
+// Đường dẫn đúng sau khi di chuyển app.js ra root
+app.use('/api/users',   require('./routes/api/users'));
+app.use('/api/books',   require('./routes/api/books'));
+app.use('/api/borrows', require('./routes/api/borrows'));
+app.use('/api/stats',   require('./routes/api/stats'));
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.json({
     message: '📚 Quan Ly Sach - API Server',
     endpoints: [
       'POST   /api/users/register',
       'POST   /api/users/login',
       'GET    /api/users',
+      'GET    /api/users/:id',
+      'PUT    /api/users/:id',
+      'PUT    /api/users/:id/reset-password',
+      'POST   /api/users/forgot-password',
+      'POST   /api/users/reset-password',
+      'DELETE /api/users/:id',
       'GET    /api/books',
       'GET    /api/books?search=...',
       'GET    /api/books/:id',
